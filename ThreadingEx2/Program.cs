@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace FindSmallest
 {
@@ -8,7 +9,7 @@ namespace FindSmallest
 
         
 
-        //test
+        
         private static readonly int[][] Data = new int[][]{
             new[]{1,5,4,2}, 
             new[]{3,2,4,11,4},
@@ -18,17 +19,7 @@ namespace FindSmallest
 
         };
 
-        private static void threads()
-        {
-            foreach (int[] data in Data)
-            {
-                Thread t1 = new Thread(() => FindSmallest(data));
-                Thread t2 = new Thread(() => FindSmallest(data));
-                Thread t3 = new Thread(() => FindSmallest(data));
-                Thread t4 = new Thread(() => FindSmallest(data));
-                Thread t5 = new Thread(() => FindSmallest(data));
-            }
-        }
+       
 
         private static int FindSmallest(int[] numbers)
         {
@@ -48,14 +39,20 @@ namespace FindSmallest
             return smallestSoFar;
         }
 
-        static void Main()
+        private static void Main()
         {
             foreach (int[] data in Data)
             {
-                Thread t = new Thread(() => FindSmallest(data));
-                int smallest = FindSmallest(data);
-                Console.WriteLine("\t" + String.Join(", ", data) + "\n-> " + smallest + t);
+                int[] data1 = data;
+                Task.Run(() =>
+                {
+                    int smallest = FindSmallest(data1);
+                    Console.WriteLine("\t" + String.Join(", ", data1) + "\n-> " + smallest);
+                   
+                });
+                
             }
         }
+        }
     }
-}
+
