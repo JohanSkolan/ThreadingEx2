@@ -4,7 +4,7 @@ namespace FindSmallest
 {
     class Program
     {
-
+        //test
         private static readonly int[][] Data = new int[][]{
             new[]{1,5,4,2}, 
             new[]{3,2,4,11,4},
